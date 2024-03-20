@@ -1,0 +1,41 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Mar 9, 2024, 12:49:14 PM
+    Author     : LAPTOP 247
+*/
+
+body {
+    display: flex;
+    flex-direction: column;
+    background:rgba(238, 238, 238, 0.26);    
+}
+#sidebar {
+    width: 150px;
+    height: 100vh; /* 100% chiều cao của view port */
+    background-color: #f1f1f1;
+    padding: 15px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    
+}
+
+#sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    
+}
+
+#sidebar ul li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20%;
+}
+
+#sidebar ul li a {
+    text-decoration: none;
+    
+    color: #333;
+}
