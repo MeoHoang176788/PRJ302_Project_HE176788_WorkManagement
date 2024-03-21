@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.*;
 import dal.*;
+import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -58,12 +59,15 @@ public class ViewProfile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-                response.setContentType("text/html;charset=UTF-8");
-                PrintWriter out = response.getWriter();
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        HttpSession session = request.getSession();
         try {
+            String loginuid=(String) session.getAttribute("loginuid");
             UserDBContext udb= new UserDBContext();
             String uid= request.getParameter("uid");
             User user= udb.getUserByUid(uid);
+//            User user= udb.getUserByUid(uid);
             //out.print(user.toString());
             request.setAttribute("User", user);
             request.getRequestDispatcher("view/profile.jsp").forward(request, response);

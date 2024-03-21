@@ -3,17 +3,28 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/LAPTOP%20247/Documents/NetBeansProjects/PRJ301_Office_Management/web/admininterface.jsp</file>
-            <file>file:/C:/Users/LAPTOP%20247/Documents/NetBeansProjects/PRJ301_Office_Management/src/java/model/User.java</file>
             <file>file:/C:/Users/LAPTOP%20247/Documents/NetBeansProjects/PRJ301_Office_Management/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/LAPTOP%20247/Documents/NetBeansProjects/PRJ301_Office_Management/src/java/controller/WorkListController.java</file>
             <file>file:/C:/Users/LAPTOP%20247/Documents/NetBeansProjects/PRJ301_Office_Management/src/java/dal/WorkListDBContext.java</file>
+            <file>file:/C:/Users/LAPTOP%20247/Documents/NetBeansProjects/PRJ301_Office_Management/web/view/work.jsp</file>
+            <file>file:/C:/Users/LAPTOP%20247/Documents/NetBeansProjects/PRJ301_Office_Management/src/java/controller/ManageWorkController.java</file>
             <file>file:/C:/Users/LAPTOP%20247/Documents/NetBeansProjects/PRJ301_Office_Management/web/worklist.jsp</file>
-            <file>file:/C:/Users/LAPTOP%20247/Documents/NetBeansProjects/PRJ301_Office_Management/web/adduser.jsp</file>
-            <file>file:/C:/Users/LAPTOP%20247/Documents/NetBeansProjects/PRJ301_Office_Management/web/addwork.jsp</file>
-            <file>file:/C:/Users/LAPTOP%20247/Documents/NetBeansProjects/PRJ301_Office_Management/src/java/model/Work.java</file>
+            <file>file:/C:/Users/LAPTOP%20247/Documents/NetBeansProjects/PRJ301_Office_Management/web/userinterface.jsp</file>
+            <file>file:/C:/Users/LAPTOP%20247/Documents/NetBeansProjects/PRJ301_Office_Management/src/java/controller/CheckWorkList.java</file>
+            <file>file:/C:/Users/LAPTOP%20247/Documents/NetBeansProjects/PRJ301_Office_Management/src/java/controller/ProfileProcess.java</file>
+            <file>file:/C:/Users/LAPTOP%20247/Documents/NetBeansProjects/PRJ301_Office_Management/src/java/controller/ViewProfile.java</file>
+            <file>file:/C:/Users/LAPTOP%20247/Documents/NetBeansProjects/PRJ301_Office_Management/web/css/admincss.css</file>
             <file>file:/C:/Users/LAPTOP%20247/Documents/NetBeansProjects/PRJ301_Office_Management/src/java/dal/UserDBContext.java</file>
+            <file>file:/C:/Users/LAPTOP%20247/Documents/NetBeansProjects/PRJ301_Office_Management/web/admininterface.jsp</file>
+            <file>file:/C:/Users/LAPTOP%20247/Documents/NetBeansProjects/PRJ301_Office_Management/src/java/controller/WorkProcess.java</file>
+            <file>file:/C:/Users/LAPTOP%20247/Documents/NetBeansProjects/PRJ301_Office_Management/web/checkstatus.jsp</file>
+            <file>file:/C:/Users/LAPTOP%20247/Documents/NetBeansProjects/PRJ301_Office_Management/src/java/controller/AddNewUser.java</file>
+            <file>file:/C:/Users/LAPTOP%20247/Documents/NetBeansProjects/PRJ301_Office_Management/web/checkworklist.jsp</file>
+            <file>file:/C:/Users/LAPTOP%20247/Documents/NetBeansProjects/PRJ301_Office_Management/web/editprofile.jsp</file>
+            <file>file:/C:/Users/LAPTOP%20247/Documents/NetBeansProjects/PRJ301_Office_Management/web/view/profile.jsp</file>
+            <file>file:/C:/Users/LAPTOP%20247/Documents/NetBeansProjects/PRJ301_Office_Management/web/adduser.jsp</file>
+            <file>file:/C:/Users/LAPTOP%20247/Documents/NetBeansProjects/PRJ301_Office_Management/src/java/model/Work.java</file>
             <file>file:/C:/Users/LAPTOP%20247/Documents/NetBeansProjects/PRJ301_Office_Management/web/userlist.jsp</file>
+            <file>file:/C:/Users/LAPTOP%20247/Documents/NetBeansProjects/PRJ301_Office_Management/web/css/profile.css</file>
         </group>
     </open-files>
 </project-private>

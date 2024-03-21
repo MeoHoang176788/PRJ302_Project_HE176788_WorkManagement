@@ -12,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -59,8 +60,16 @@ public class DeleteWork extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("index.html").forward(request, response);
-
+        PrintWriter out = response.getWriter();
+        HttpSession session = request.getSession();
+        String loginuid=(String) session.getAttribute("loginuid");
+        WorkListDBContext wdb= new WorkListDBContext();
+        String workid = request.getParameter("id");
+        String uid = request.getParameter("uid");
+        wdb.deleteWork(workid);
+//        request.getRequestDispatcher("ManageWork?uid="+uid).forward(request, response);
+        out.print(uid+" "+workid);
+        response.sendRedirect("ManageWork");
     } 
 
     /** 
@@ -75,13 +84,8 @@ public class DeleteWork extends HttpServlet {
     throws ServletException, IOException {
         WorkListDBContext wdb= new WorkListDBContext();
         String workid = request.getParameter("id");
-        try {
-            wdb.deleteWork(workid);
-        } catch (SQLException ex) {
-            Logger.getLogger(AddNewWork.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        request.getRequestDispatcher("index.html").forward(request, response);
-
+        wdb.deleteWork(workid);
+        response.sendRedirect("ManagerWork?uid=");
     }
 
     /** 

@@ -11,6 +11,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import dal.*;
+import jakarta.servlet.http.HttpSession;
+import java.sql.SQLException;
+import model.*;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -53,7 +60,28 @@ public class ManagerUserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        PrintWriter out = response.getWriter();
+        HttpSession session = request.getSession();
+        try {
+            String loginuid=(String) session.getAttribute("loginuid");
+            AccountDBContext adb= new AccountDBContext();
+            ArrayList<String> adminlist= adb.getAdminUidList();
+            String uid= request.getParameter("uid");
+            out.println(loginuid);
+//            request.getRequestDispatcher("userlist.jsp").forward(request, response);
+            if(loginuid==null || loginuid.isEmpty()){
+                request.getRequestDispatcher("index.html").forward(request, response);
+            } else{
+                if(adminlist.contains(loginuid)){
+                    request.getRequestDispatcher("userlist.jsp").forward(request, response);
+                } else{
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagerUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     } 
 
     /** 

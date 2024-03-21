@@ -3,7 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
-import java.util.*;
+import java.sql.Date;
+
 
 /**
  *
@@ -17,6 +18,7 @@ public class User {
     private String email;
     private String phone;
     private String address;
+    private int permission;
 
     public User() {
     }
@@ -30,6 +32,19 @@ public class User {
         this.phone = phone;
         this.address = address;
     }
+
+    public User(String uid, String name, boolean gender, Date startdate, String email, String phone, String address, int permission) {
+        this.uid = uid;
+        this.name = name;
+        this.gender = gender;
+        this.startdate = startdate;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.permission = permission;
+    }
+    
+    
 
     public String getUid() {
         return uid;
@@ -87,10 +102,21 @@ public class User {
         this.address = address;
     }
 
+    public int getPermission() {
+        return permission;
+    }
+
+    public void setPermission(int permission) {
+        this.permission = permission;
+    }
+
     @Override
     public String toString() {
-        return "User{" + "uid=" + uid + ", name=" + name + ", gender=" + gender + ", startdate=" + startdate + ", email=" + email + ", phone=" + phone + ", address=" + address + '}';
+        return "User{" + "uid=" + uid + ", name=" + name + ", gender=" + gender + ", startdate=" + startdate + ", email=" + email + ", phone=" + phone + ", address=" + address + ", permission=" + permission + '}';
     }
+
+    
+    
 
     
     

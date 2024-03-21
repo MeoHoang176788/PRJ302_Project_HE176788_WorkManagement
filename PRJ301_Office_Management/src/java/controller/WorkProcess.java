@@ -11,19 +11,18 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.Date;
 import model.Work;
 import dal.WorkListDBContext;
+import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 /**
  *
  * @author LAPTOP 247
  */
-public class AddNewWork extends HttpServlet {
+public class WorkProcess extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -40,10 +39,10 @@ public class AddNewWork extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddNewWork</title>");  
+            out.println("<title>Servlet WorkProcess</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddNewWork at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet WorkProcess at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,8 +59,31 @@ public class AddNewWork extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.setAttribute("status", "none");
-        request.getRequestDispatcher("addwork.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        String loginuid=(String) session.getAttribute("loginuid");
+        if(loginuid.equals(null) || loginuid.isEmpty()){
+            response.sendRedirect("index.html");
+        } else{
+            try {
+                String status=request.getParameter("status");
+                WorkListDBContext wdb=new WorkListDBContext();
+                String wid=request.getParameter("wid");
+                ArrayList<Work> w= wdb.getWorkbyWid(wid);
+                String worksubmit=request.getParameter("workSubmit");
+                w.get(0).setWorksubmit(worksubmit);
+                String workstatus= w.get(0).getWorkstatus();
+                if(status!=null){
+                    workstatus=status;
+                }
+                request.setAttribute("wid", wid);
+                request.setAttribute("rs", w);
+                request.setAttribute("status", workstatus);
+                request.getRequestDispatcher("view/work.jsp").forward(request, response);
+            } catch (SQLException ex) {
+                Logger.getLogger(WorkProcess.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
     } 
 
     /** 
@@ -76,36 +98,32 @@ public class AddNewWork extends HttpServlet {
     throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         try {
-            String preuid=request.getParameter("preuid");
-            if(preuid!=null && !preuid.isEmpty()){
-                request.setAttribute("preuid", preuid);
-            }
-            WorkListDBContext wdb= new WorkListDBContext();
-            int id=wdb.getWorkList().size()+1;
-            int n=3;
-            String number="";
-            while(n>0){
-                n--;
-                number=id%10+number;
-                id=id/10;
-            }
-            String workid="W"+number;
-            String worktitle =request.getParameter("wt");
-            String workrequest =request.getParameter("wr");
-            Date workstartdate=Date.valueOf(request.getParameter("wsd"));
-            Date workenddate=Date.valueOf(request.getParameter("wed"));
-            String uid=request.getParameter("uid");
-            String status="Planned";
-            Work w=new Work(workid, worktitle, workrequest, workstartdate, workenddate, status, uid);
-            out.print(w.toString());
-            if(wdb.addWork(w)){
-                response.sendRedirect("ManageWork");
+            
+            String status=request.getParameter("status");
+            String wid=request.getParameter("wid");
+            WorkListDBContext wdb=new WorkListDBContext();            
+            ArrayList<Work> w= wdb.getWorkbyWid(wid);
+            Work wupdate=w.get(0);
+            String worksubmit=request.getParameter("workSubmit");
+            String workstatus= wupdate.getWorkstatus();
+            if(status==null){
+                workstatus= w.get(0).getWorkstatus();
             } else{
-                request.setAttribute("status", "failed");
-                request.getRequestDispatcher("addwork.jsp").forward(request, response);
+                workstatus=status;    
+                if(status.equals("Ongoing") || status.equals("Pending") || status.equals("Finished") || status.equals("Failed")){   
+                    wupdate.setWorksubmit(worksubmit);
+                    wupdate.setWorkstatus(status);
+                    wdb.updateWork(wupdate);
+                    response.sendRedirect("ManageWork");
+                } else{
+                    request.setAttribute("wid", wid);
+                    request.setAttribute("rs", w);
+                    request.setAttribute("status", workstatus);
+                    request.getRequestDispatcher("view/work.jsp").forward(request, response);
+                }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AddNewWork.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(WorkProcess.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

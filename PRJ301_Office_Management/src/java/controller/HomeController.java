@@ -11,6 +11,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import model.User;
+import dal.UserDBContext;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -53,8 +59,34 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("index.html").forward(request, response); 
-    } 
+        HttpSession session = request.getSession();
+        UserDBContext udb= new UserDBContext();
+        try {
+            String loginuid=(String) session.getAttribute("loginuid");            
+            User u= udb.getUserByUid(loginuid);
+            PrintWriter out = response.getWriter();
+            int permission=u.getPermission();
+            out.println(loginuid +" "+permission);
+            out.println(u.toString());
+            
+//        try{
+//            loginpermission=Integer.parseInt(raw_loginpermission);
+//        }catch(NumberFormatException e){
+//            request.getRequestDispatcher("login").forward(request, response);
+//        }
+////        int permission= (int) request.getAttribute("per");
+        if(permission==1){
+            request.setAttribute("uid", loginuid);
+            request.getRequestDispatcher("admininterface.jsp").forward(request, response);
+        } else{
+            request.setAttribute("uid", loginuid);
+            request.getRequestDispatcher("userinterface.jsp").forward(request, response); 
+        }
+        } catch (SQLException ex) {
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+    }
 
     /** 
      * Handles the HTTP <code>POST</code> method.
@@ -66,7 +98,20 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        int permission= (int) request.getAttribute("per");
+        HttpSession session = request.getSession();
+        UserDBContext udb= new UserDBContext();
+        try {
+            String loginuid=(String) session.getAttribute("loginuid");            
+            User u= udb.getUserByUid(loginuid);
+            PrintWriter out = response.getWriter();
+            out.println(loginuid);
+            int permission=u.getPermission();
+//        try{
+//            loginpermission=Integer.parseInt(raw_loginpermission);
+//        }catch(NumberFormatException e){
+//            request.getRequestDispatcher("login").forward(request, response);
+//        }
+////        int permission= (int) request.getAttribute("per");
         String uid=(String) request.getAttribute("uid");
         if(permission==1){
             request.setAttribute("uid", uid);
@@ -74,6 +119,9 @@ public class HomeController extends HttpServlet {
         } else{
             request.setAttribute("uid", uid);
             request.getRequestDispatcher("userinterface.jsp").forward(request, response); 
+        }
+        } catch (SQLException ex) {
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
         }
        
     }

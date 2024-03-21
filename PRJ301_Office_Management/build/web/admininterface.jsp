@@ -20,6 +20,30 @@
             #rounded-circle img{
                 border-radius: 50% !important;
             }
+            .box {
+                background-color: #2e2929;
+            border: 1px solid #ccc;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            width: 400px;
+            border-radius: 4%;
+            color: white;
+            font-family: sans-serif;
+        }
+
+        /* Style for the box title */
+        .box h2 {
+            margin-top: 0;
+            color: #fff;
+        }
+
+        /* Style for the box content */
+        .box p {
+            margin: 0;
+            color: whitesmoke;
+            font-size: 22px;
+        }
         </style>
     </head>
     <body>
@@ -37,34 +61,36 @@
             </div>
             <ul>
                 <li><a href="Profile?uid=<%= uid %>">View Profile</a></li>
-                <li><a href="ManagerUser?uid=<%= uid %>">Manage User</a></li>
-                <li><a href="ManageWork?uid=<%= uid %>">Manage Work</a></li>
-                <li><a href="WorkList?uid=<%= uid %>&action=check">Check Work Status</a></li>               
+                <li><a href="ManageUser">Manage User</a></li>
+                <li><a href="ManageWork">Manage Work</a></li>
+                <li><a href="CheckStatus">Check Work Status</a></li>               
             </ul>
         </div>
             <div class="container">
                 <!-- Box 1 -->
                 <div class="box">
-                    <h2>Box 1 Title</h2>
-                    <p>This is the content of Box 1.</p>
+                    <h2>View Profile</h2>
+                    <p>Display user profile and edit user profile like name, gender, email, address,etc... and update it into database.</p>
                 </div>
 
                 <!-- Box 2 -->
                 <div class="box">
-                    <h2>Box 2 Title</h2>
-                    <p>This is the content of Box 2.</p>
+                    <h2>Manage User</h2>
+                    <p>Display list of worker that currently have in system and can create,add or delete user in the list.
+                        Can edit profile of user when click on user id</p>
                 </div>
 
                 <!-- Box 3 -->
                 <div class="box">
-                    <h2>Box 3 Title</h2>
-                    <p>This is the content of Box 3.</p>
+                    <h2>Manage Work</h2>
+                    <p>Display list work of all worker that currently have in system and can create,add or delete user in the list. 
+                        Can be click on work id to view work detail </p>
                 </div>
 
                 <!-- Box 4 -->
                 <div class="box">
-                    <h2>Box 4 Title</h2>
-                    <p>This is the content of Box 4.</p>
+                    <h2>Check Work Status</h2>
+                    <p>Checking work that are in status pending need to be checked that been submitted by worker.</p>
                 </div>
             </div>
 <!--        <div id="background-content">  

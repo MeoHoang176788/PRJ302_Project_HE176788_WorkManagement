@@ -14,14 +14,67 @@ public class Work {
     private String workid;
     private String worktitle;
     private String workrequest;
-    private String worksubmit;
+    private String worksubmit;    
     private Date workstartdate;
+    private Date workenddate;
+    private Date worksubmitdate;
     private String workstatus;
     private String uid;
 
     public Work() {
     }
 
+    public Work(String workid, String worktitle, String workrequest, Date workstartdate, String uid) {
+        this.workid = workid;
+        this.worktitle = worktitle;
+        this.workrequest = workrequest;
+        this.workstartdate = workstartdate;
+        this.uid = uid;
+    }
+
+    public Work(String workid, String worktitle, String workrequest, String worksubmit, Date workstartdate, Date workenddate, Date worksubmitdate, String workstatus) {
+        this.workid = workid;
+        this.worktitle = worktitle;
+        this.workrequest = workrequest;
+        this.worksubmit = worksubmit;
+        this.workstartdate = workstartdate;
+        this.workenddate = workenddate;
+        this.worksubmitdate = worksubmitdate;
+        this.workstatus = workstatus;
+    }
+    
+    
+
+    public Work(String workid, String worktitle, String workrequest, String worksubmit, Date workstartdate, Date workenddate, Date worksubmitdate, String workstatus, String uid) {
+        this.workid = workid;
+        this.worktitle = worktitle;
+        this.workrequest = workrequest;
+        this.worksubmit = worksubmit;
+        this.workstartdate = workstartdate;
+        this.workenddate = workenddate;
+        this.worksubmitdate = worksubmitdate;
+        this.workstatus = workstatus;
+        this.uid = uid;
+    }
+
+    public Work(String workid, String worktitle, String workrequest, Date workstartdate, Date workenddate, String workstatus, String uid) {
+        this.workid = workid;
+        this.worktitle = worktitle;
+        this.workrequest = workrequest;
+        this.workstartdate = workstartdate;
+        this.workenddate = workenddate;
+        this.workstatus = workstatus;
+        this.uid = uid;
+    }
+
+    
+    
+    
+
+    
+
+    
+    
     public Work(String workid, String worktitle, String workrequest, String worksubmit, Date workstartdate, String workstatus) {
         this.workid = workid;
         this.worktitle = worktitle;
@@ -91,6 +144,24 @@ public class Work {
         this.workstatus = workstatus;
     }
 
+    public Date getWorkenddate() {
+        return workenddate;
+    }
+
+    public void setWorkenddate(Date workenddate) {
+        this.workenddate = workenddate;
+    }
+
+    public Date getWorksubmitdate() {
+        return worksubmitdate;
+    }
+
+    public void setWorksubmitdate(Date worksubmitdate) {
+        this.worksubmitdate = worksubmitdate;
+    }
+    
+    
+
     public String getUid() {
         return uid;
     }
@@ -98,12 +169,15 @@ public class Work {
     public void setUid(String uid) {
         this.uid = uid;
     }
-    
+
     @Override
     public String toString() {
-        return "Work{" + "workid=" + workid + ", worktitle=" + worktitle + ", workrequest=" + workrequest + ", worksubmit=" + worksubmit + ", workstartdate=" + workstartdate + ", workstatus=" + workstatus + '}';
+        return "Work{" + "workid=" + workid + ", worktitle=" + worktitle + ", workrequest=" + workrequest + ", worksubmit=" + worksubmit + ", workstartdate=" + workstartdate + ", workenddate=" + workenddate + ", worksubmitdate=" + worksubmitdate + ", workstatus=" + workstatus + ", uid=" + uid + '}';
     }
+    
+    
 
+    
     
     
     

@@ -21,6 +21,19 @@
                 font-style: italic;
                 padding: 10px;
             }
+
+            .sub-main-w3ls input[type="text"] {
+                outline: none;
+                font-size: 1em;
+                border: none;
+                background: #eeeeee;
+                width: 82.5%;
+                color: #000;
+                padding: 1em 3em 1em 1em;
+                letter-spacing: 1px;
+                font-family: 'Snippet', sans-serif;
+            }    
+
         </style>
     </head>
     <body>
@@ -38,7 +51,7 @@
 			</div>
 			<div class="sub-main-w3ls">	
 				<form action="login" method="post">
-					<input placeholder="Enter your E-mail" name="email" type="email" required="">
+					<input placeholder="Enter your E-mail" name="email" type="text" required="">
 					<input  placeholder="Enter Password" name="password" type="password" required="">	
                                         <%
                                             if(request.getAttribute("rs")!=null){

@@ -70,30 +70,7 @@ body {
         }
 
         /* Style for the box */
-        .box {
-            background-color: #727070;
-            border: 1px solid #ccc;
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 400px;
-            border-radius: 4%;
-            color: white;
-        }
-
-        /* Style for the box title */
-        .box h2 {
-            margin-top: 0;
-            color: #fff;
-        }
-
-        /* Style for the box content */
-        .box p {
-            margin: 0;
-            color: whitesmoke;
-        }
+        
 
 
 

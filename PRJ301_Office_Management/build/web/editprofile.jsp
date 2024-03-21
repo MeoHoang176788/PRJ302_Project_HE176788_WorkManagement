@@ -1,9 +1,8 @@
 <%-- 
-    Document   : profile
-    Created on : Mar 13, 2024, 9:05:24 PM
+    Document   : editprofile
+    Created on : Mar 19, 2024, 10:24:32 PM
     Author     : LAPTOP 247
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -16,8 +15,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="css/profile.css"/>
-<style type="text/css">
-    	.btn {
+<style>
+    	.form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="date"],
+        .form-group input[type="tel"],
+        .form-group input[type="password"]{
+            width: 70%;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-group input[type="radio"] {
+            margin-right: 10px;
+        }
+        .btn {
             padding: 10px 20px;
             background-color: #007bff;
             color: #fff;
@@ -36,7 +55,8 @@
 <div class="main-body">
     <nav aria-label="breadcrumb" class="main-breadcrumb">
 <ol class="breadcrumb">
-<li class="breadcrumb-item"><a href="Home">Home</a></li>
+<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+<li class="breadcrumb-item"><a href="javascript:void(0)">User</a></li>
 <li class="breadcrumb-item active" aria-current="page">User Profile</li>
 </ol>
 </nav>
@@ -67,74 +87,77 @@
 </div>
 </div>
 </div>
-</div>
+</div>  
+    <form action="ProfileProcess" method="post">    
         <div class="card mb-3">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-sm-3">
+                    <div class="col-sm-3 ">
                         <h6 class="mb-0">Full Name</h6>
                     </div>
-                    <div class="col-sm-9 text-secondary">
-                        ${user.name}
+                    <div class="col-sm-9 text-secondary form-group">
+                        <input type="text" name="name" value="${user.name}">
                     </div>
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col-sm-3">
+                    <div class="col-sm-3 ">
                         <h6 class="mb-0">Gender</h6>
                     </div>
-                    <div class="col-sm-9 text-secondary">
-                        ${user.gender ?  'Female' : 'Male'}
+                    <div class="col-sm-9 text-secondary form-group">
+                        <input type="radio" name="gender" value="Male" <c:if test="${gender == 'Male'}">checked</c:if>>Male
+                        <input type="radio" name="gender" value="Female" checked> Female
                     </div>
                 </div>
                 <hr>
                 
                 <div class="row">
-                    <div class="col-sm-3">
+                    <div class="col-sm-3 ">
                         <h6 class="mb-0">Email</h6>
                     </div>
-                    <div class="col-sm-9 text-secondary">
-<!--                        <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="51373821113b243a3c24397f303d">[email&nbsp;protected]</a>-->
-                            ${user.email}
+                    <div class="col-sm-9 text-secondary form-group">
+                        <input type="email" name="email" value="${user.email}">
                     </div>
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col-sm-3">
+                    <div class="col-sm-3 ">
                         <h6 class="mb-0">Phone</h6>
                     </div>
-                    <div class="col-sm-9 text-secondary">
-                        ${user.phone}
+                    <div class="col-sm-9 text-secondary form-group">
+                        <input type="tel" name="phone" value="${user.phone}">
                     </div>
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col-sm-3">
+                    <div class="col-sm-3 ">
                         <h6 class="mb-0">Address</h6>
                     </div>
-                    <div class="col-sm-9 text-secondary">
-                        ${user.address}
+                    <div class="col-sm-9 text-secondary form-group">
+                        <input type="text" name="address" value="${user.address}">
                     </div>
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col-sm-3">
+                    <div class="col-sm-3 ">
                         <h6 class="mb-0">Start Work Date</h6>
                     </div>
-                    <div class="col-sm-9 text-secondary">
-                        ${user.startdate}
+                    <div class="col-sm-9 text-secondary form-group">
+                        <input type="date" name="date" value="${user.startdate}"> 
                     </div>
                 </div>
                 <hr>
-                  
+                <c:if test="${not empty requestScope.ustatus}">
+                    <c:if test="${requestScope.ustatus eq 'failed'}">
+                        <h1 style="color: red">Edit Failed!!!</h1>
+                    </c:if>  
+                </c:if>              
     </div>
     </div>
-    <div >
-        <form action="ProfileProcess" method="post">
-            <input type="hidden" name="status" value="edit">
-            <button class="btn" type="submit" name="uid" value="${user.uid}">Edit Profile</button>
-        </form>  
-    </div>                  
+        
+            <input type="hidden" name="status" value="save">
+            <button class="btn" type="submit" name="uid" value="${user.uid}">Save Profile</button>
+    </form>                
     </div>
     </div>
     </div>

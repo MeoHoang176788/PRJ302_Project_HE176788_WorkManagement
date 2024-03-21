@@ -48,6 +48,38 @@
         <servlet-name>ManageWorkController</servlet-name>
         <servlet-class>controller.ManageWorkController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddNewUser</servlet-name>
+        <servlet-class>controller.AddNewUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteUser</servlet-name>
+        <servlet-class>controller.DeleteUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>WorkProcess</servlet-name>
+        <servlet-class>controller.WorkProcess</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateWork</servlet-name>
+        <servlet-class>controller.UpdateWork</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateUser</servlet-name>
+        <servlet-class>controller.UpdateUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserProcess</servlet-name>
+        <servlet-class>controller.UserProcess</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProfileProcess</servlet-name>
+        <servlet-class>controller.ProfileProcess</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckWorkList</servlet-name>
+        <servlet-class>controller.CheckWorkList</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>userservlet</servlet-name>
         <url-pattern>/user</url-pattern>
@@ -82,7 +114,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
-        <url-pattern>/home</url-pattern>
+        <url-pattern>/Home</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewProfile</servlet-name>
@@ -90,10 +122,42 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ManagerUserController</servlet-name>
-        <url-pattern>/ManagerUser</url-pattern>
+        <url-pattern>/ManageUser</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ManageWorkController</servlet-name>
         <url-pattern>/ManageWork</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddNewUser</servlet-name>
+        <url-pattern>/AddUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteUser</servlet-name>
+        <url-pattern>/DeleteUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WorkProcess</servlet-name>
+        <url-pattern>/WorkProcess</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateWork</servlet-name>
+        <url-pattern>/UpdateWork</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateUser</servlet-name>
+        <url-pattern>/UpdateUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserProcess</servlet-name>
+        <url-pattern>/UserProcess</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfileProcess</servlet-name>
+        <url-pattern>/ProfileProcess</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckWorkList</servlet-name>
+        <url-pattern>/CheckStatus</url-pattern>
     </servlet-mapping>
 </web-app>

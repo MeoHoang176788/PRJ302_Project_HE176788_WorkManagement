@@ -12,6 +12,8 @@
     <jsp:useBean id="u" class="dal.UserDBContext" scope="request"></jsp:useBean>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/table.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <title>Worklist</title>
     <style>
         /* Style the button text */
@@ -27,9 +29,66 @@
         .button:hover {
             color: red; /* Đổi màu chữ sang đỏ khi di chuột qua button */
         }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            width: 80%;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            margin: 20px;
+            width: 90%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .breadcrumb{
+                    width: 80%;
+                    padding: 15px;
+                    margin-left: 25px;
+                }
+                .main-body {
+                    padding: 15px;
+                }
     </style>
     </head>
     <body>
+        <div class="main-body">
+        <nav aria-label="breadcrumb" class="main-breadcrumb">
+                    <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="Home">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Manage Work</li>
+                    </ol>
+                    </nav>  
+        <div>
+            <h2>Manage User</h2>
+        </div>
         <table>
         <thead>
             <tr>
@@ -44,7 +103,7 @@
             </tr>
         </thead>
         <tbody>
-        <c:forEach items="${u.userList}" var="user">
+        <c:forEach items="${u.wokerList}" var="user">
                 <tr>
                     <td><a href="Profile?uid=${user.getUid()}">${user.getUid()}</a></td>
                     <td>${user.getName()}</td>
@@ -53,11 +112,17 @@
                     <td>${user.getEmail()}</td>
                     <td>${user.getPhone()}</td>
                     <td>${user.getAddress()}</td>
-                    <td><a href="Profile?uid=${user.getUid()}">Delete</a></td>
+                    <td><a href="DeleteUser?uid=${user.getUid()}">Delete</a></td>
                 </tr>
             </c:forEach>
         </tbody>
     </table>
-        
+        <div>
+            <form action="AddUser" method="get">
+                <input class="btn" type="submit" value="Add New User">
+            </form>
+        </div>
+    </div>        
     </body>
+    
 </html>

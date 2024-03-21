@@ -72,19 +72,22 @@ public class WorkDetailController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
-        WorkListDBContext wdb= new WorkListDBContext();
-        String wid=request.getParameter("workId");
-        ArrayList<Work> worklist = new ArrayList<Work>();
         try {
+            PrintWriter out = response.getWriter();
+            WorkListDBContext wdb= new WorkListDBContext();
+            String wid=request.getParameter("workId");
+            ArrayList<Work> worklist = new ArrayList<Work>();
+            
             worklist=wdb.getWorkbyWid(wid);
+            //out.print(wid);
+            String workstatus=worklist.get(0).getWorkstatus();            
+            request.setAttribute("wid", wid);
+            request.setAttribute("rs", worklist);
+            request.setAttribute("status", workstatus);
+            request.getRequestDispatcher("view/work.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(WorkDetailController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //out.print(wid);
-        request.setAttribute("wid", wid);
-        request.setAttribute("rs", worklist);
-        request.getRequestDispatcher("view/work.jsp").forward(request, response);
     }
 
     /** 

@@ -11,11 +11,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.User;
+import dal.UserDBContext;
 import java.sql.Date;
-import model.Work;
-import dal.WorkListDBContext;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,7 +22,7 @@ import java.util.logging.Logger;
  *
  * @author LAPTOP 247
  */
-public class AddNewWork extends HttpServlet {
+public class ProfileProcess extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -40,10 +39,10 @@ public class AddNewWork extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddNewWork</title>");  
+            out.println("<title>Servlet ProfileProcess</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddNewWork at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ProfileProcess at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,8 +59,7 @@ public class AddNewWork extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.setAttribute("status", "none");
-        request.getRequestDispatcher("addwork.jsp").forward(request, response);
+        processRequest(request, response);
     } 
 
     /** 
@@ -75,37 +73,51 @@ public class AddNewWork extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         PrintWriter out = response.getWriter();
-        try {
-            String preuid=request.getParameter("preuid");
-            if(preuid!=null && !preuid.isEmpty()){
-                request.setAttribute("preuid", preuid);
-            }
-            WorkListDBContext wdb= new WorkListDBContext();
-            int id=wdb.getWorkList().size()+1;
-            int n=3;
-            String number="";
-            while(n>0){
-                n--;
-                number=id%10+number;
-                id=id/10;
-            }
-            String workid="W"+number;
-            String worktitle =request.getParameter("wt");
-            String workrequest =request.getParameter("wr");
-            Date workstartdate=Date.valueOf(request.getParameter("wsd"));
-            Date workenddate=Date.valueOf(request.getParameter("wed"));
+        try {            
+            UserDBContext udb= new UserDBContext();
             String uid=request.getParameter("uid");
-            String status="Planned";
-            Work w=new Work(workid, worktitle, workrequest, workstartdate, workenddate, status, uid);
-            out.print(w.toString());
-            if(wdb.addWork(w)){
-                response.sendRedirect("ManageWork");
-            } else{
-                request.setAttribute("status", "failed");
-                request.getRequestDispatcher("addwork.jsp").forward(request, response);
+            User u=udb.getUserByUid(uid);
+            String status= request.getParameter("status");
+            if(status!=null){
+                if(status.equals("edit")){
+                    request.setAttribute("User", u);
+                    request.getRequestDispatcher("editprofile.jsp").forward(request, response);
+                }
+                if(status.equals("save")){
+                    String fullname=request.getParameter("name");
+                    String raw_gender=request.getParameter("gender");
+                    boolean gender=true;
+                    if(raw_gender.equals("1")){
+                        gender=true;
+                    } else{
+                        gender=false;
+                    }
+                    Date startdate=Date.valueOf(request.getParameter("date"));
+                    int permission=0;
+                    String email=request.getParameter("email");
+                    String phone=request.getParameter("phone");
+                    String address=request.getParameter("address");
+                    u.setName(fullname);
+                    u.setGender(gender);
+                    u.setEmail(email);
+                    u.setPhone(phone);
+                    u.setAddress(address);
+                    u.setStartdate(startdate);
+                    if(udb.updateUser(u)){
+                        request.setAttribute("User", u);
+                        request.getRequestDispatcher("view/profile.jsp").forward(request, response);
+                    }else{
+                        request.setAttribute("ustatus", "failed");
+                        request.getRequestDispatcher("editprofile.jsp").forward(request, response);
+
+                    }
+                    
+                }
             }
+            
+            processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(AddNewWork.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProfileProcess.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

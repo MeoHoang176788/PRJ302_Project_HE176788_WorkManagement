@@ -61,6 +61,18 @@ public class AccountDBContext {
         return accounts;
     }
 
+    public ArrayList<String> getAdminUidList() throws SQLException{
+        ArrayList<String> adminlist= new ArrayList<>();
+                String query = "Select a.uid from Account a where a.permission=1";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        
+            while (resultSet.next()) {
+                String aid = resultSet.getString(1);
+                adminlist.add(aid);
+            }
+        return adminlist;
+    }
     // Bạn có thể thêm các phương thức khác tùy thuộc vào nhu cầu của bạn
 
     public static void main(String[] args) throws SQLException {
@@ -69,14 +81,19 @@ public class AccountDBContext {
         ArrayList<Account> accounts = adb.getAllAccounts();
         System.out.println(adb);
         // In ra thông tin các Account
-        for (Account acc : accounts) {
-            System.out.println("AID: " + acc.getAid());
-            System.out.println("Account: " + acc.getAccount());
-            System.out.println("Password: " + acc.getPassword());
-            System.out.println("Permission: "+acc.getPermission());
-            System.out.println("UID: " + acc.getUid());
-            System.out.println("-------------");
-        }
+//        for (Account acc : accounts) {
+//            System.out.println("AID: " + acc.getAid());
+//            System.out.println("Account: " + acc.getAccount());
+//            System.out.println("Password: " + acc.getPassword());
+//            System.out.println("Permission: "+acc.getPermission());
+//            System.out.println("UID: " + acc.getUid());
+//            System.out.println("-------------");
+//        }
+     ArrayList<String> adminlist=adb.getAdminUidList();
+     for(String s: adminlist){
+         System.out.println(s);
+     }
     }
+    
 }
 

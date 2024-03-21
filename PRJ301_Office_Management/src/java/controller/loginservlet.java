@@ -13,6 +13,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -60,8 +61,7 @@ public class loginservlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("userinterface.jsp").forward(request, response);
-        
+        request.getRequestDispatcher("index.html").forward(request, response);        
     } 
 
     /** 
@@ -74,6 +74,7 @@ public class loginservlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        HttpSession session = request.getSession();
         PrintWriter out= response.getWriter();
         
   
@@ -102,13 +103,21 @@ public class loginservlet extends HttpServlet {
                 break;
             }
         }
-
+        String per;
+        if(permission==1){
+            per="1";
+        } else{
+            per="0";
+        }
         if (loginSuccessful) {
             // Forward to userinterface.jsp on successful login
-            
+                
+                session.setAttribute("loginuid", uid);
+                session.setAttribute("permission", per);
                 request.setAttribute("per", permission);
                 request.setAttribute("uid", uid);
-                request.getRequestDispatcher("home").forward(request, response);
+//                request.getRequestDispatcher("Home").forward(request, response);
+                response.sendRedirect("Home");
         } else {
             // Redirect to an error page or handle the unsuccessful login scenario
             request.setAttribute("rs", false);

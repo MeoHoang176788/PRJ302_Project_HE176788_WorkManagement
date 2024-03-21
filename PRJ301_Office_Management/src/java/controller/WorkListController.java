@@ -59,9 +59,28 @@ public class WorkListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        
-        request.getRequestDispatcher("index.html").forward(request, response);
-//        request.getRequestDispatcher("worklist.jsp").forward(request, response);
+        String per=request.getParameter("per");
+        boolean check=Boolean.getBoolean(per);
+        request.setAttribute("per", check);
+        WorkListDBContext wdb= new WorkListDBContext();
+        String uid=request.getParameter("uid");
+        ArrayList<Work> worklist = new ArrayList<Work>();
+        if(uid==null || uid.isEmpty()){
+            try {
+                worklist=wdb.getWorkList();
+            } catch (SQLException ex) {
+                Logger.getLogger(WorkListController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else{
+            try {
+                worklist=wdb.getWorkListbyUid(uid);
+            } catch (SQLException ex) {
+                Logger.getLogger(WorkListController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }         
+        request.setAttribute("preuid", uid);
+        request.setAttribute("worklist", worklist);
+        request.getRequestDispatcher("worklist.jsp").forward(request, response);
     } 
 
     /** 
@@ -76,6 +95,7 @@ public class WorkListController extends HttpServlet {
     throws ServletException, IOException {
         WorkListDBContext wdb= new WorkListDBContext();
         String uid=request.getParameter("uid");
+        request.setAttribute("per", true);
         ArrayList<Work> worklist = new ArrayList<Work>();
         if(uid==null || uid.isEmpty()){
             try {
